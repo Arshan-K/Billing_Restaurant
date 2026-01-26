@@ -2,8 +2,8 @@
 # check=error=true
 
 # This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
-# docker build -t courier_transport .
-# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name courier_transport courier_transport
+# docker build -t stock_management .
+# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name stock_management stock_management
 
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
@@ -16,27 +16,8 @@ WORKDIR /rails
 
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y \
-      curl \
-      libjemalloc2 \
-      chromium \
-      libvips \
-      postgresql-client \
-      nodejs \
-      npm \
-      libnspr4 \
-      libnss3 \
-      libatk1.0-0 \
-      libatk-bridge2.0-0 \
-      libcups2 \
-      libxcomposite1 \
-      libxdamage1 \
-      libxrandr2 \
-      libgbm1 \
-      libxkbcommon0 \
-      libasound2 \
-      libxfixes3 \
-    && rm -rf /var/lib/apt/lists /var/cache/apt/archives
+    apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
 ENV RAILS_ENV="production" \
@@ -60,8 +41,6 @@ RUN bundle install && \
 
 # Copy application code
 COPY . .
-
-RUN npm install
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/

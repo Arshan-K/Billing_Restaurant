@@ -3,9 +3,9 @@ import { useAuth } from "../services/AuthContext";
 import type { JSX } from "react/jsx-dev-runtime";
 
 export default function ProtectedRoute({ children }: { children: JSX.Element }) {
-  const { token } = useAuth();
+  const { isAuthenticated } = useAuth();
 
-  if (!token) {
+  if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 

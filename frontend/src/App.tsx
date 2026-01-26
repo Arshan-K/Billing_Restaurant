@@ -6,9 +6,11 @@ import History from "./pages/History";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AuthListener from "./AuthListener";
+import { AuthProvider } from "./services/AuthContext";
 
 export default function App() {
   return (
+    <AuthProvider>
     <BrowserRouter>
       <AuthListener />
       <Routes>
@@ -31,5 +33,6 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
   );
 }

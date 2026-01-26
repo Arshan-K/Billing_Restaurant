@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { login } from "../services/auth";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../services/AuthContext";
+import { login as loginRequest } from "../services/auth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -8,12 +9,14 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth(); 
 
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      await login(email, password);
-      navigate("/");
+      const token = await loginRequest(email, password);
+      login(token);
+      navigate("/", { replace: true });
     } catch {
       setError("Invalid credentials");
     } finally {

@@ -3,6 +3,7 @@ import type { Category } from "../types/category";
 import MenuCard from "./MenuCard";
 import { fetchCategories } from "../services/billing";
 import type { MenuItem } from "../types/MenuItem";
+import { useAuth } from "../services/AuthContext";
 
 export default function MenuSection({
   onAdd,
@@ -11,12 +12,15 @@ export default function MenuSection({
 }) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const { token } = useAuth();
 
   useEffect(() => {
+    if (!token) return;
+
     fetchCategories()
       .then(setCategories)
       .finally(() => setLoading(false));
-  }, []);
+  }, [token]);
 
   if (loading) {
     return <p>Loading menu...</p>;

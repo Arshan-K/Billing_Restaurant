@@ -22,8 +22,7 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
 
-      // IMPORTANT: hard redirect (works everywhere)
-      window.location.href = "/login";
+      window.dispatchEvent(new Event("unauthorized"));
     }
     return Promise.reject(error);
   }

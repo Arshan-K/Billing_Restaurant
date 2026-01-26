@@ -5,10 +5,12 @@ import Menu from "./pages/Menu";
 import History from "./pages/History";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AuthListener from "./AuthListener";
 
 export default function App() {
   return (
     <BrowserRouter>
+      <AuthListener />
       <Routes>
         {/* Public */}
         <Route path="/login" element={<Login />} />

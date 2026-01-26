@@ -16,7 +16,7 @@ export default function Login() {
     try {
       const token = await loginRequest(email, password);
       login(token);
-      navigate("/", { replace: true });
+      navigate("/");
     } catch {
       setError("Invalid credentials");
     } finally {

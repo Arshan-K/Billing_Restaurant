@@ -1,6 +1,12 @@
 class ApplicationController < ActionController::API
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
 
+   def demo_user
+    @demo_user ||= User.first || User.create!(
+      email: "demo@example.com",
+      password: "password123"
+    )
+  end
   private
 
   def authenticate_user!

@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
     def index
       categories = Category.active.includes(:menu_items)
       render json: categories.as_json(

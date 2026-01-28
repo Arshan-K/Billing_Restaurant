@@ -4,15 +4,15 @@ import Billing from "./pages/Billing";
 import Menu from "./pages/Menu";
 import History from "./pages/History";
 import Login from "./pages/Login";
-import ProtectedRoute from "./components/ProtectedRoute";
-import AuthListener from "./AuthListener";
-import { AuthProvider } from "./services/AuthContext";
+// import ProtectedRoute from "./components/ProtectedRoute";
+// import AuthListener from "./AuthListener";
+// import { AuthProvider } from "./services/AuthContext";
 
 export default function App() {
   return (
-    <AuthProvider>
+    // <AuthProvider>
     <BrowserRouter>
-      <AuthListener />
+      {/* <AuthListener /> */}
       <Routes>
         {/* Public */}
         <Route path="/login" element={<Login />} />
@@ -20,9 +20,9 @@ export default function App() {
         {/* Protected */}
         <Route
           element={
-            <ProtectedRoute>
+            // <ProtectedRoute>
               <AppLayout />
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         >
           <Route path="/" element={<Billing />} />
@@ -33,6 +33,6 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
-    </AuthProvider>
+    // </AuthProvider>
   );
 }

@@ -1,5 +1,5 @@
 class MenuItemsController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
     def index
       render json: MenuItem.includes(:category).as_json(
         include: { category: { only: [:id, :name] } }

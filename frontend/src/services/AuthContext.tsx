@@ -12,6 +12,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -19,6 +20,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setToken(storedToken);
       setIsAuthenticated(true);
     }
+    setReady(true);
   }, []);
 
   const login = (token: string) => {
@@ -32,6 +34,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(null);
     setIsAuthenticated(false);
   };
+
+  if (!ready) return null;
 
   return (
     <AuthContext.Provider value={{ token, isAuthenticated, login, logout }}>

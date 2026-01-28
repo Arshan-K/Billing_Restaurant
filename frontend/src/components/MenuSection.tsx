@@ -12,15 +12,15 @@ export default function MenuSection({
 }) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
-  const { isAuthenticated } = useAuth();
+  const { token } = useAuth();
 
   useEffect(() => {
-    if (!isAuthenticated) return;
+    if (!token) return;
 
     fetchCategories()
       .then(setCategories)
       .finally(() => setLoading(false));
-  }, [isAuthenticated]);
+  }, [token]);
 
   if (loading) {
     return <p>Loading menu...</p>;
